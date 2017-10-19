@@ -31,32 +31,34 @@ function SoftFloat(value) {
     this.atTarget = true;
     this.callback = false;
     this.target = this.value;
-}
+    
+    this.update = function() {
+      if (!this.atTarget) {
+        this.acceleration += this.attraction * (this.target - this.value);
+        this.velocity = (this.velocity + this.acceleration) * this.damping;
+        this.value += this.velocity;
+        this.acceleration = 0;
+        if (abs(this.velocity) > this.epsilon && abs(this.value - this.target) > this.epsilon) {
+          // we are still updating
+          return true;
+        }
+        this.value = this.target;
+        this.atTarget = true;
+        if (this.callback){
+          this.callback();
+        }
+      }
+      return false;
+    };
 
-SoftFloat.prototype.update = function() {
-  if (!this.atTarget) {
-    this.acceleration += this.attraction * (this.target - this.value);
-    this.velocity = (this.velocity + this.acceleration) * this.damping;
-    this.value += this.velocity;
-    this.acceleration = 0;
-    if (abs(this.velocity) > this.epsilon && abs(this.value - this.target) > this.epsilon) {
-      // we are still updating
-      return true;
-    }
-    this.value = this.target;
-    this.atTarget = true;
-    if (this.callback){
-      this.callback();
-    }
+
+  this.setTarget = function(t) {
+    this.atTarget = false;
+    this.target = t;
   }
-  return false;
 }
 
 
-SoftFloat.prototype.setTarget = function(t) {
-  this.atTarget = false;
-  this.target = t;
-}
 
 function CountryData(code, name, female, male) {
   this.code = code;
@@ -66,47 +68,47 @@ function CountryData(code, name, female, male) {
   if ('Mozambique' == name) {
     print(female, male);
   } 
+  
+  this.setPosition = function(x, y){
+    this.x = new SoftFloat(x);
+    this.fy = new SoftFloat(y);
+    this.my = new SoftFloat(y);
+  }
+  
+  this.moveTo = function(x) {
+    this.x.setTarget(x);
+  }
+  
+  this.setYear = function(yr) {
+    this.female = this.femaleData[yr];
+    this.male = this.maleData[yr];
+    var fy = map(this.female, 0, 100, bounds.bottom, bounds.top);
+    var my = map(this.male, 0, 100, bounds.bottom, bounds.top);
+    this.fy.setTarget(fy); 
+    this.my.setTarget(my);
+    this.gap = this.female - this.male;
+  }
+  
+  this.update = function(){
+    this.x.update();
+    this.fy.update(); 
+    this.my.update();
+  } 
+  
+  
+  this.draw = function(yr) {
+    var x = this.x.value;
+    var fy = this.fy.value;
+    var my = this.my.value;
+    line(x, fy, x, my);
+    noStroke();
+    fill(femaleColor);
+    ellipse(x,fy,2,2);
+    fill(maleColor);
+    ellipse(x,my,2,2);
+  }
+
 }
-
-CountryData.prototype.setPosition = function(x, y){
-  this.x = new SoftFloat(x);
-  this.fy = new SoftFloat(y);
-  this.my = new SoftFloat(y);
-}
-
-CountryData.prototype.moveTo = function(x) {
-  this.x.setTarget(x);
-}
-
-CountryData.prototype.setYear = function(yr) {
-  this.female = this.femaleData[yr];
-  this.male = this.maleData[yr];
-  var fy = map(this.female, 0, 100, bounds.bottom, bounds.top);
-  var my = map(this.male, 0, 100, bounds.bottom, bounds.top);
-  this.fy.setTarget(fy); 
-  this.my.setTarget(my);
-  this.gap = this.female - this.male;
-}
-
-CountryData.prototype.update = function(){
-  this.x.update();
-  this.fy.update(); 
-  this.my.update();
-} 
-
-
-CountryData.prototype.draw = function(yr) {
-  var x = this.x.value;
-  var fy = this.fy.value;
-  var my = this.my.value;
-  line(x, fy, x, my);
-  noStroke();
-  fill(femaleColor);
-  ellipse(x,fy,2,2);
-  fill(maleColor);
-  ellipse(x,my,2,2);
-}
-
 
 function preload() {
   countries = loadJSON('data/countries.json');
@@ -297,5 +299,4 @@ function mouseMoved(){
     loop();
   }
 }
-
 

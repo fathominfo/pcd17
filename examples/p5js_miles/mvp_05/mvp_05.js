@@ -12,7 +12,6 @@ var sessionX;
 var selectedIndex = 0;
 
 
-// New!
 // we will track how many sessions each person played on
 // and draw them as circles
 var musicianRadii;
@@ -69,14 +68,12 @@ function draw() {
   
   var personnel = sessions[selectedIndex].personnel;
   var ypos = 130;
-  // New!
-  // the personnel list doesn't ju
+  
   var artist;
   var name;
   var radius;
   textAlign(LEFT,CENTER);
   for (var i=0,L=personnel.length;i<L;i++){
-    // New!
     artist = personnel[i];
     name = artist.name;
     radius = artist.radius;
@@ -125,7 +122,6 @@ function handleLoad(data){
   }
   
   
-  // New!
   // track how many sessions each musician played
   var musicianCounts = {};
   var maxCount = 0;
@@ -139,7 +135,6 @@ function handleLoad(data){
     d = sessions[i].date;
     x = map(d, minDate, maxDate, leftEdge, rightEdge);
     sessionX[i] = x;
-    // New!
     names = sessions[i].personnel;  
     for (var j=0,L2 = names.length;j<L2;j++){
       name = names[j];
@@ -169,9 +164,10 @@ function handleLoad(data){
   musicianRadii['Miles Davis'] = 3; // he's special
   
   
-  
+  // New! 
   // now replace the list of names for each session
-  // with a list of names and sizes
+  // with a list of names and sizes. This will enable us to sort 
+  // the musicians by how often they played with Miles.
   var names;
   var personnel;
   for (var i=0,L=sessions.length;i<L;i++){
@@ -185,11 +181,8 @@ function handleLoad(data){
     // now sort the list
     personnel.sort(sortPersonnel);
     sessions[i].personnel = personnel;
-    
   }
-  
 }
-
 
 function sortPersonnel(a,b){
   if (a.name == 'Miles Davis') {
