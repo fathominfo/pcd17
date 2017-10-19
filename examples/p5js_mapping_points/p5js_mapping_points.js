@@ -70,6 +70,7 @@ function draw() {
     var y = map(place.y, maxY, minY, 0, height);
     point(x, y);
   }
+  noLoop();
 }
 
 
