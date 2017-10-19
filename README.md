@@ -21,10 +21,10 @@ This example is good for beginners to see how new features can be added to a ske
 
 
 ## p5js_usmap_svg
-Besides drawing geographic points, many maps show country shapes. In the web world, a common way to do this is to use an SVG (Scalable Vector Graphic) file. SVG’s are images which can be searched, indexed and scaled to different sized without looking pixelated. This is a very different type of image from the p5.js canvas, and adding this to your sketch can bypass a lot of what makes p5.js great. This example demonstrates the basics of loading an SVG into p5.js, and how to connect code to clicking every state. 
+Besides drawing geographic points, many maps show country shapes. In the web world, a common way to do this is to use an SVG (Scalable Vector Graphic) file. SVG’s are images which can be searched, indexed and scaled to different sized without looking pixelated. This is a very different type of image from the p5.js canvas, and adding this to your sketch can bypass a lot of what makes p5.js great. [This example](examples/p5js_usmap_svg/) demonstrates the basics of loading an SVG into p5.js, and how to connect code to clicking every state. 
 
 ## p5js_worldmap_svg
-This example builds on the basic p5.js SVG map exmaple by coloring the map according to data values. The driving data is an indicator from the [noceilings data data repository](https://github.com/fathominfo/noceilings-data) showing primary school enrollment for girls by country and for a specific year. You can click on a country to get an alert with the data values. You can edit the code to show the map for a diferent year, or you can download another indicator from the no ceilings repository to show it (instructions are in the code). 
+[This example](examples/p5js_worldmap_svg) builds on the basic p5.js SVG map exmaple by coloring the map according to data values. The driving data is an indicator from the [noceilings data data repository](https://github.com/fathominfo/noceilings-data) showing primary school enrollment for girls by country and for a specific year. You can click on a country to get an alert with the data values. You can edit the code to show the map for a diferent year, or you can download another indicator from the no ceilings repository to show it (instructions are in the code). 
 
 One of the challenges of working with data from different sources is how to join them: in this case, we have to join the indicator data with the map, each using their own set of codes to label the countries of the world. To merge them, we need a third file. This example shows how to do load the data sources and the map, merge them, and then take the result to color every country. 
 
@@ -32,5 +32,5 @@ To highlight where desktop processing can be useful, there is a [desktop version
 
 
 ## processing_quakes_pdf
-This example demonstrates a couple highlights of desktop Processing. It loads a data file that is larger than what you typically wnat to load over the web, and then prints it as a PDF after it’s drawn. Again using an SVG to map indicators, the code also shows how to create a table to connect the country code values in the data to the values in the SVG.
+[This example](examples/processing_quakes_pdf) demonstrates a couple highlights of desktop Processing. It loads a data file that is larger than what you typically wnat to load over the web, and then prints it as a PDF after it’s drawn. Again using an SVG to map indicators, the code also shows how to create a table to connect the country code values in the data to the values in the SVG.
 
