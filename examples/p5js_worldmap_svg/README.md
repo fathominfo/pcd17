@@ -1,0 +1,6 @@
+# p5js_worldmap_svg
+This example builds on the [basic p5.js SVG map exmaple](https://github.com/fathominfo/pcd17/tree/master/examples/p5js_usmap_svg) by coloring the map according to data values. The driving data is an indicator from the [noceilings data data repository](https://github.com/fathominfo/noceilings-data) showing primary school enrollment for girls by country and year – we show a single year. You can click on a country to get an alert with the data for that country in that year. You can edit the code to show the map for a diferent year, or you can download another indicator from the no ceilings repository to show it (instructions are in the code). 
+
+One of the challenges of working with data from different sources is how to join them: in this case, we have to join the indicator data for each country to the the map. Unfortunately, the indicator data and the map each use different codes to identify the countries. To merge them, we need a third file. This example shows how to do load the data sources and the map, merge them, filter out any problems, and then take the result to color every country. 
+
+To complement this web version, there is a [desktop version of this example](https://github.com/fathominfo/noceilings-data/tree/master/examples/map_export) of this sketch. That one prints a pdf of the map to your desktop. 

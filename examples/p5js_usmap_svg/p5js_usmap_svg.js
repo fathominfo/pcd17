@@ -27,6 +27,7 @@ function addSVG(svg) {
   buttons.forEach(function(button, idx, array) {
     button.mouseClicked(function() {
       print(this.id() + " clicked");
+      alert(this.id() + " clicked");
     });
   });
 }  
